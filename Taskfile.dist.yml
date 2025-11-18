@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+version: 3
+
+includes:
+  asdf:
+    aliases: [a]
+    taskfile: ./taskfiles/asdf.yml
+
+  bat:
+    taskfile: ./taskfiles/bat.yml
+
+  brew:
+    aliases: [b]
+    taskfile: ./taskfiles/brew.yml
+
+  comp:
+    aliases: [c, completions]
+    taskfile: ./taskfiles/completions.yml
+
+  dot:
+    aliases: [dots]
+    taskfile: ./taskfiles/dotfiles.yml
+
+  fonts:
+    taskfile: ./taskfiles/fonts.yml
+
+  gh:
+    aliases: [github]
+    taskfile: ./taskfiles/github.yml
+
+  go:
+    taskfile: ./taskfiles/go.yml
+
+  lint:
+    taskfile: ./taskfiles/lint.yml
+
+  mac:
+    taskfile: ./taskfiles/mac.yml
+
+  nvim:
+    taskfile: ./taskfiles/nvim.yml
+
+  node:
+    taskfile: ./taskfiles/node.yml
+
+  python:
+    taskfile: ./taskfiles/python.yml
+
+  rust:
+    taskfile: ./taskfiles/rust.yml
+
+  shell:
+    aliases: [sh]
+    taskfile: ./taskfiles/shell.yml
+
+  tmux:
+    aliases: [t]
+    taskfile: ./taskfiles/tmux.yml
+
+  zinit:
+    taskfile: ./taskfiles/zinit.yml
+
+tasks:
+  default:
+    cmd: task -l
+    silent: true
+
+  install:
+    desc: An alias to dot:install
+    cmds:
+      - task: dot:install
+
+  sync:
+    desc: An alias to dot:sync
+    cmds:
+      - task: dot:sync
+
+  sync:fast:
+    desc: An alias to dot:sync:fast
+    cmds:
+      - task: dot:sync:fast
+
+  install:sudo-touch-id:
+    desc: Sets up touch id as sufficient sudo permission
+    summary: Sets up touch id as sufficient sudo permission
+
+      This survives OS updates after macOS Sonoma.
+
+      Requires sudo.
+    platforms: [darwin]
+    cmds:
+      - sed 's/^#auth/auth/' /etc/pam.d/sudo_local.template > /etc/pam.d/sudo_local
